@@ -6,5 +6,8 @@ module.exports = {
         }
       }],
       require("@babel/preset-react")
+    ],
+    plugins: [
+      require('@babel/plugin-proposal-class-properties')
     ]
   }
