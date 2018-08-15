@@ -4,15 +4,22 @@ import React, { Component } from 'react';
 
 import { selectCities, getForecast } from './redux/selectors';
 import ExtendedItemDetail from './ExtendedItemDetail';
+import { getWeatherForecast } from './redux/actions';
 
 const apply = connect(
     state => ({
         cities: selectCities(state),
         params: getForecast(state)
-    })
+    }),
+    { getWeatherForecast: getWeatherForecast }
 )
 
 class ExtendedItem extends Component{
+
+    componentDidMount () {
+        const { getWeatherForecast, match } = this.props;
+        getWeatherForecast(match.params.name);
+    }
 
     renderForecast () {
         const { params } = this.props;
@@ -40,10 +47,12 @@ class ExtendedItem extends Component{
                 ))}
                 </tbody>
             </Table>
-    )}
+        )
+    }
 
     render() {
         const { params, match } = this.props;
+        console.log(this.props);
         return(
             <div>
                 <h2>{match.params.name}</h2>

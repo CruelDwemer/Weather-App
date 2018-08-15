@@ -36,7 +36,7 @@ class App extends Component {
             <Provider store={store}>
                 <HashRouter>
                     <Switch>
-                        <Route path='/:id' component={ExtendedItem} />
+                        <Route path='/:name' component={ExtendedItem} />
                         <Route exact path='/' component={Main} />
                     </Switch>
                 </HashRouter>
