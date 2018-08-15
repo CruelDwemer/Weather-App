@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga';
 import { createStore, applyMiddleware,  } from 'redux';
 import { HashRouter, Route, Switch } from 'react-router-dom';
 
-import { saveData, loadData } from './service/localStorage';
+import { saveData, loadData } from './service/localstorage';
 import rootReducer from './redux/reducers/rootReducer';
 import mainSaga from './redux/sagas/mainSaga';
 import ExtendedItem from './ExtendedItem';
