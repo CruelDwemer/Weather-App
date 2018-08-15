@@ -4,37 +4,15 @@ import React, { Component } from 'react';
 
 import { selectCities, getForecast } from './redux/selectors';
 import ExtendedItemDetail from './ExtendedItemDetail';
-import { getWeatherForecast } from './redux/actions';
 
 const apply = connect(
     state => ({
         cities: selectCities(state),
         params: getForecast(state)
-    }),
-    {getWeatherForecast: getWeatherForecast}
+    })
 )
 
 class ExtendedItem extends Component{
-    constructor() {
-        super();
-        this.state = {
-            selectedCity: {
-                name: ''
-            }
-        }
-    }
-
-    componentDidMount() {
-        this.selectCity();
-    };
-
-    selectCity = () => {
-        const { cities, match, getWeatherForecast } = this.props;
-        const selected = cities.filter(city => city.id === +match.params.id);
-        const selectedCity = selected[0];
-        this.setState({ selectedCity });
-        getWeatherForecast(selectedCity.name);
-    }
 
     renderForecast () {
         const { params } = this.props;
@@ -65,10 +43,10 @@ class ExtendedItem extends Component{
     )}
 
     render() {
-        const { params } = this.props;
+        const { params, match } = this.props;
         return(
             <div>
-                <h2>{this.state.selectedCity.name}</h2>
+                <h2>{match.params.name}</h2>
                 {params ? this.renderForecast() : <div>...Loading...</div>}
             </div>
         )
