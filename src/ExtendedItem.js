@@ -2,24 +2,17 @@ import { Table } from 'reactstrap';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 
-import { selectCities, getForecast } from './redux/selectors';
+import { getSelectedCity, getForecast } from './redux/selectors';
 import ExtendedItemDetail from './ExtendedItemDetail';
-import { getWeatherForecast } from './redux/actions';
 
 const apply = connect(
     state => ({
-        cities: selectCities(state),
+        name: getSelectedCity(state),
         params: getForecast(state)
-    }),
-    { getWeatherForecast: getWeatherForecast }
+    })
 )
 
 class ExtendedItem extends Component{
-
-    componentDidMount () {
-        const { getWeatherForecast, match } = this.props;
-        getWeatherForecast(match.params.name);
-    }
 
     renderForecast () {
         const { params } = this.props;
@@ -51,11 +44,10 @@ class ExtendedItem extends Component{
     }
 
     render() {
-        const { params, match } = this.props;
-        console.log(this.props);
+        const { params, name } = this.props;
         return(
             <div>
-                <h2>{match.params.name}</h2>
+                <h2>{name}</h2>
                 {params ? this.renderForecast() : <div>...Loading...</div>}
             </div>
         )

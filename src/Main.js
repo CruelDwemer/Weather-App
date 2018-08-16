@@ -6,7 +6,6 @@ import List from './List';
 
 export default class Main extends Component {
     render () {
-        console.log(this.props);
         return (
             <Row>
                 <Col sm="12" md={{ size: 8, offset: 2 }}>

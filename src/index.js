@@ -18,14 +18,16 @@ const store = createStore(
     rootReducer,
     persistedStore,
     applyMiddleware(sagaMiddleware)
-    
 );
 
 store.subscribe(() => {
     saveData(
-      { items: store.getState().items }
+        { 
+            items: store.getState().items,
+            selectedCityWeather: store.getState().selectedCityWeather
+        }
     )
-  })
+})
 
 sagaMiddleware.run(mainSaga);
 

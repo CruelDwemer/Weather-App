@@ -2,6 +2,7 @@ import { select, put, takeEvery } from 'redux-saga/effects';
 
 import { REFRESH_WEATHER, GET_WEATHER_FORECAST } from '../constants';
 import { setWeather, setWeatherForecast } from '../actions';
+import { getSelectedCity } from '../selectors';
 import { apiKey } from '../../service/settings';
 
 function* getWeatherInfo(action) {
@@ -36,7 +37,15 @@ function* getWeatherForecast(action) {
     } catch (error) { console.log(error)}
 }
 
+function* refreshWeatherForecast() {
+    const selectedCity = yield select(getSelectedCity);
+    if (selectedCity) {
+        getWeatherForecast({ name: selectedCity });
+    }
+}
+
 export default function* inject () {
+    yield refreshWeatherForecast();
     yield takeEvery(REFRESH_WEATHER, getWeatherInfo);
     yield takeEvery(GET_WEATHER_FORECAST, getWeatherForecast);
 }
